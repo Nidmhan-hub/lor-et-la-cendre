@@ -1,0 +1,116 @@
+{
+  "name": "L'Or & la Cendre — Scoring des leads",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lor-et-la-cendre-leads",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-node",
+      "name": "Webhook Cercle Privé",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [260, 300],
+      "webhookId": "lor-et-la-cendre-leads"
+    },
+    {
+      "parameters": {
+        "jsCode": "const freeProviders = ['gmail.com','yahoo.com','yahoo.fr','hotmail.com','hotmail.fr','outlook.com','outlook.fr','live.com','live.fr','icloud.com','aol.com','gmx.com','protonmail.com','laposte.net','orange.fr','free.fr','wanadoo.fr'];\n\nconst body = $input.item.json.body || $input.item.json;\nconst name = (body.name || '').trim();\nconst email = (body.email || '').trim().toLowerCase();\n\nlet score = 0;\nconst reasons = [];\n\nconst domain = email.split('@')[1] || '';\nif (domain && !freeProviders.includes(domain)) {\n  score += 2;\n  reasons.push('Domaine email professionnel');\n}\n\nif (name.split(/\\s+/).filter(Boolean).length >= 2) {\n  score += 1;\n  reasons.push('Nom complet renseigné');\n}\n\nconst tier = score >= 2 ? 'prioritaire' : 'standard';\n\nreturn {\n  json: {\n    name,\n    email,\n    domain,\n    score,\n    tier,\n    reasons,\n    source: body.source || null,\n    submittedAt: body.submittedAt || new Date().toISOString(),\n    scoredAt: new Date().toISOString()\n  }\n};"
+      },
+      "id": "scoring-node",
+      "name": "Calcul du score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "sheets-node",
+      "name": "Ajout dans Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [700, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REMPLACER_PAR_VOTRE_CREDENTIAL",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, tier: $json.tier, score: $json.score } }}",
+        "options": {}
+      },
+      "id": "respond-node",
+      "name": "Réponse à la landing page",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [920, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Cercle Privé": {
+      "main": [
+        [
+          {
+            "node": "Calcul du score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcul du score": {
+      "main": [
+        [
+          {
+            "node": "Ajout dans Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ajout dans Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Réponse à la landing page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "description": "Workflow de qualification et scoring des leads (livrable 3.3) pour L'Or & la Cendre. Règles simples + stockage Google Sheets via API."
+  },
+  "pinData": {}
+}

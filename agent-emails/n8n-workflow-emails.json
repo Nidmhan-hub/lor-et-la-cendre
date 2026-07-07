@@ -1,0 +1,157 @@
+{
+  "name": "L'Or & la Cendre — Agent emails marketing",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Générateur d'emails — L'Or & la Cendre",
+        "formDescription": "Décrivez la campagne : l'agent rédige l'email dans la voix de la maison.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Type de campagne",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  { "option": "Email de bienvenue" },
+                  { "option": "Lancement de collection" },
+                  { "option": "Invitation événement privé" },
+                  { "option": "Réactivation client" }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Univers à mettre en avant",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  { "option": "Montres" },
+                  { "option": "Bracelets & Accessoires" },
+                  { "option": "Cigares" }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Segment / persona",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  { "option": "Nouveau prospect" },
+                  { "option": "Membre du Cercle Privé" },
+                  { "option": "Client fidèle" }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Prénom du destinataire",
+              "fieldType": "text",
+              "requiredField": false
+            },
+            {
+              "fieldLabel": "Précisions / offre",
+              "fieldType": "textarea",
+              "requiredField": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "form-trigger-node",
+      "name": "Formulaire de campagne",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [260, 320],
+      "webhookId": "lor-et-la-cendre-emails"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rédige l'email pour la campagne suivante :\n- Type de campagne : {{ $json['Type de campagne'] }}\n- Univers à mettre en avant : {{ $json['Univers à mettre en avant'] }}\n- Segment / persona : {{ $json['Segment / persona'] }}\n- Prénom du destinataire : {{ $json['Prénom du destinataire'] }}\n- Précisions / offre : {{ $json['Précisions / offre'] }}",
+        "options": {
+          "systemMessage": "Tu es le rédacteur email de la maison de luxe « L'Or & la Cendre » (montres d'exception, bracelets & accessoires, cigares rares). Promesse : « L'art de vivre pour l'homme d'exception ». Ta mission : rédiger des emails marketing personnalisés, prêts à être envoyés.\n\nVOIX DE LA MARQUE :\n- Vouvoiement systématique, aucune familiarité.\n- Raffiné, assuré, sobre. Phrases courtes, vocabulaire soigné.\n- On suggère le luxe, on ne le crie jamais. Aucun emoji, aucune surenchère de points d'exclamation.\n\nRÈGLES :\n- Personnalise selon le segment et le prénom fournis. Si le prénom est absent, ouvre avec élégance sans prénom.\n- Ne jamais inventer de prix : rester sur « sur demande », « sur allocation » ou « sur invitation ».\n- Un seul appel à l'action, clair et formulé avec retenue.\n- Adapter le fond à l'univers indiqué (montres, accessoires ou cigares).\n- Français impeccable.\n\nFORMAT DE SORTIE (à respecter exactement) :\n\nOBJET (3 propositions) :\n1. …\n2. …\n3. …\n\nAPERÇU (texte de prévisualisation, ~90 caractères) :\n…\n\nCORPS DE L'EMAIL :\n[Salutation personnalisée]\n[2 à 3 courts paragraphes dans le ton de la maison]\n[Appel à l'action unique, mis en évidence]\n[Formule de politesse + signature « La Maison L'Or & la Cendre »]\n\nPS (optionnel, une ligne) :\n…"
+        }
+      },
+      "id": "email-agent-node",
+      "name": "Agent rédacteur email",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [560, 320]
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "gemini-model-node",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [480, 540],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "REMPLACER_PAR_VOTRE_CREDENTIAL",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Votre email est prêt",
+        "completionMessage": "={{ $json.output }}",
+        "options": {}
+      },
+      "id": "form-completion-node",
+      "name": "Email généré",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [860, 320]
+    }
+  ],
+  "connections": {
+    "Formulaire de campagne": {
+      "main": [
+        [
+          {
+            "node": "Agent rédacteur email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agent rédacteur email",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent rédacteur email": {
+      "main": [
+        [
+          {
+            "node": "Email généré",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "description": "Agent IA de rédaction d'emails marketing personnalisés (livrable 3.2) pour L'Or & la Cendre."
+  },
+  "pinData": {}
+}

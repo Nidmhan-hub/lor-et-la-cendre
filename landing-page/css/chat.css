@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Habillage du widget de chat n8n — couleurs L'Or & la Cendre
+   Ces variables ne s'appliquent que lorsque le widget est chargé.
+   Noms de variables susceptibles d'évoluer selon la version de @n8n/chat ;
+   ajustez si besoin.
+   ========================================================================== */
+:root {
+  --chat--color-primary: #C6A664;
+  --chat--color-primary-shade-50: #b3945a;
+  --chat--color-primary-shade-100: #a08650;
+  --chat--color-secondary: #C6A664;
+  --chat--color-white: #F5F2EA;
+  --chat--color-dark: #0A0A0A;
+  --chat--color-typing: #C6A664;
+
+  --chat--toggle--background: #C6A664;
+  --chat--toggle--hover--background: #b3945a;
+  --chat--toggle--active--background: #a08650;
+  --chat--toggle--color: #0A0A0A;
+  --chat--toggle--size: 60px;
+
+  --chat--window--width: 400px;
+  --chat--window--height: 600px;
+  --chat--border-radius: 2px;
+
+  --chat--header--background: #0A0A0A;
+  --chat--header--color: #F5F2EA;
+  --chat--header-border-bottom: 1px solid rgba(198, 166, 100, 0.3);
+  --chat--heading--font-size: 1.25rem;
+  --chat--subtitle--color: rgba(245, 242, 234, 0.6);
+
+  --chat--body--background: #121110;
+
+  --chat--message--bot--background: #1b1a18;
+  --chat--message--bot--color: #F5F2EA;
+  --chat--message--user--background: #C6A664;
+  --chat--message--user--color: #0A0A0A;
+  --chat--message--font-size: 0.95rem;
+
+  --chat--input--background: #0A0A0A;
+  --chat--input--text-color: #F5F2EA;
+  --chat--input--border: 1px solid rgba(198, 166, 100, 0.3);
+  --chat--input--placeholder--font-color: rgba(245, 242, 234, 0.35);
+  --chat--button--color: #C6A664;
+}
+
+/* Titres du widget en serif, pour rester dans l'esprit de la maison */
+.chat-window .chat-header,
+.chat-window .chat-heading {
+  font-family: 'Cormorant Garamond', serif !important;
+  letter-spacing: 0.04em;
+}

@@ -1,0 +1,43 @@
+Projet : landing page pour "L'Or & la Cendre"
+
+Contexte : maison d'e-commerce de luxe pour hommes exigeants. Trois univers produits — montres, bracelets/accessoires haut de gamme, et une section cigares (caves, accessoires, sélections rares). Cible : hommes 35-60 ans, CSP++, connaisseurs sensibles à l'exclusivité et à l'artisanat plus qu'au prix.
+
+Promesse de marque : « L'art de vivre pour l'homme d'exception ».
+
+Ton de voix : raffiné, assuré, sobre. On suggère le luxe, on ne le crie jamais. Phrases courtes, vocabulaire soigné, zéro familiarité.
+
+Direction visuelle : design très minimaliste, fond sombre, typographie serif élégante pour les titres et sans-serif épurée pour le texte, visuels très graphiques pour un rendu "boutique de prestige".
+
+Palette :
+
+
+
+Noir profond : #0A0A0A
+
+Or / champagne : #C6A664
+
+Blanc cassé : #F5F2EA
+
+Touches brun cuir / acajou pour la section cigares
+
+
+
+Sections attendues :
+
+
+
+Hero avec la promesse de marque
+
+Section Montres
+
+Section Bracelets & accessoires
+
+Section Cigares (univers dédié, ambiance plus chaude)
+
+Formulaire de capture de leads (nom + email), conçu pour être branché plus tard sur un workflow n8n
+
+Design responsive
+
+HTML/CSS/JS( moderne luxe minimaliste )
+
+# je te donne aussi accès au dossier avec des captures d'ecran et idée que j'ai trouvé sur autre site de produit, homme riche etc)
