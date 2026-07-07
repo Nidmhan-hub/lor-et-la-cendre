@@ -37,16 +37,8 @@
   <!-- ===================== HERO ===================== -->
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
-      <svg class="hero-motif" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="300" cy="300" r="240" stroke="#C6A664" stroke-width="0.75" opacity="0.35"/>
-        <circle cx="300" cy="300" r="180" stroke="#C6A664" stroke-width="0.75" opacity="0.25"/>
-        <line x1="300" y1="60" x2="300" y2="120" stroke="#C6A664" stroke-width="1" opacity="0.4"/>
-        <line x1="300" y1="480" x2="300" y2="540" stroke="#C6A664" stroke-width="1" opacity="0.4"/>
-        <line x1="60" y1="300" x2="120" y2="300" stroke="#C6A664" stroke-width="1" opacity="0.4"/>
-        <line x1="480" y1="300" x2="540" y2="300" stroke="#C6A664" stroke-width="1" opacity="0.4"/>
-        <path d="M300 300 L300 180" stroke="#C6A664" stroke-width="1.25" opacity="0.6"/>
-        <path d="M300 300 L380 320" stroke="#C6A664" stroke-width="1.25" opacity="0.6"/>
-      </svg>
+      <img class="hero-photo" src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=1600&q=80&auto=format&fit=crop" alt="" loading="eager">
+      <div class="hero-scrim"></div>
     </div>
 
     <div class="container hero-content reveal">
@@ -75,30 +67,36 @@
 
       <div class="card-grid reveal">
         <article class="card">
-          <span class="card-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="24" cy="24" r="14"/><path d="M24 16v8l6 4"/><path d="M19 6h10M19 42h10"/><path d="M19 6l1.2 4.5M29 6l-1.2 4.5M19 42l1.2-4.5M29 42l-1.2-4.5"/></svg>
-          </span>
-          <h3 class="card-title">Collection Méridien</h3>
-          <p class="card-text">La montre-bracelet classique, dans sa forme la plus pure. Boîtiers en or et acier, mouvements suisses certifiés.</p>
-          <span class="card-meta">Prix sur demande</span>
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1698612059359-c68a1015b69f?w=800&q=80&auto=format&fit=crop" alt="Montre-bracelet classique de la collection Méridien, portée par un homme en costume" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Collection Méridien</h3>
+            <p class="card-text">La montre-bracelet classique, dans sa forme la plus pure. Boîtiers en or et acier, mouvements suisses certifiés.</p>
+            <span class="card-price">À partir de 8 900 €</span>
+          </div>
         </article>
 
         <article class="card">
-          <span class="card-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="9"/><path d="M24 8v6M24 34v6M8 24h6M34 24h6"/></svg>
-          </span>
-          <h3 class="card-title">Collection Souveraine</h3>
-          <p class="card-text">Complications rares — quantièmes perpétuels, répétitions minutes. Pour l'amateur de haute horlogerie.</p>
-          <span class="card-meta">Édition limitée</span>
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1631729670375-7b9bc6ba6c07?w=800&q=80&auto=format&fit=crop" alt="Montre de complication portée au poignet, collection Souveraine" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Collection Souveraine</h3>
+            <p class="card-text">Complications rares — quantièmes perpétuels, répétitions minutes. Pour l'amateur de haute horlogerie.</p>
+            <span class="card-price">À partir de 42 000 €</span>
+          </div>
         </article>
 
         <article class="card">
-          <span class="card-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><rect x="14" y="6" width="20" height="36" rx="9"/><path d="M18 16h12M18 24h12M18 32h8"/></svg>
-          </span>
-          <h3 class="card-title">Collection Régence</h3>
-          <p class="card-text">Pièces vintage restaurées avec le plus grand soin, chacune accompagnée de son certificat d'authenticité.</p>
-          <span class="card-meta">Pièce unique</span>
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1731446451263-fc3881d4973d?w=800&q=80&auto=format&fit=crop" alt="Montre à gousset vintage restaurée, collection Régence" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Collection Régence</h3>
+            <p class="card-text">Pièces vintage restaurées avec le plus grand soin, chacune accompagnée de son certificat d'authenticité.</p>
+            <span class="card-price">24 500 € — pièce unique</span>
+          </div>
         </article>
       </div>
     </div>
@@ -114,48 +112,60 @@
         <p class="section-lead">Le détail distingue l'homme d'exception. Chevalières, cuirs fins et métaux précieux composent une garde-robe discrète, jamais ostentatoire.</p>
       </div>
 
-      <div class="feature-grid reveal">
-        <div class="feature">
-          <span class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="24" cy="30" r="11"/><rect x="16" y="7" width="16" height="12" rx="2"/></svg>
-          </span>
-          <h3>Chevalières &amp; alliances</h3>
-          <p>Métaux précieux, gravures sur mesure.</p>
+      <div class="accessoires-layout reveal">
+        <div class="accessoires-visual">
+          <img src="https://images.unsplash.com/photo-1679881715416-918a3330a19c?w=900&q=80&auto=format&fit=crop" alt="Chevalière en or portée à la main, gravure sur mesure" loading="lazy">
         </div>
-        <div class="feature">
-          <span class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M6 24c0-7 8-12 18-12s18 5 18 12-8 12-18 12S6 31 6 24z"/><path d="M6 24h36"/></svg>
-          </span>
-          <h3>Bracelets en cuir fin</h3>
-          <p>Tannage traditionnel, boucles en or massif.</p>
-        </div>
-        <div class="feature">
-          <span class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="14" cy="24" r="7"/><circle cx="34" cy="24" r="7"/><path d="M21 22h6M21 26h6"/></svg>
-          </span>
-          <h3>Boutons de manchette</h3>
-          <p>Émail, nacre et pierres fines.</p>
-        </div>
-        <div class="feature">
-          <span class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M10 10c9 4 19 4 28 0"/><path d="M24 10v13"/><path d="M18 23l6 11 6-11z"/></svg>
-          </span>
-          <h3>Chaînes &amp; pendentifs</h3>
-          <p>Discrétion assumée, finitions d'orfèvre.</p>
-        </div>
-        <div class="feature">
-          <span class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><line x1="10" y1="38" x2="38" y2="10"/><circle cx="10" cy="38" r="3"/><circle cx="38" cy="10" r="3"/></svg>
-          </span>
-          <h3>Épingles à revers</h3>
-          <p>Barres de col sophistiquées, sur mesure.</p>
-        </div>
-        <div class="feature">
-          <span class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><rect x="9" y="16" width="30" height="20" rx="2"/><path d="M9 16l6-8h18l6 8"/></svg>
-          </span>
-          <h3>Authenticité garantie</h3>
-          <p>Certificat et provenance pour chaque pièce.</p>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <span class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="24" cy="30" r="11"/><rect x="16" y="7" width="16" height="12" rx="2"/></svg>
+            </span>
+            <h3>Chevalières &amp; alliances</h3>
+            <p>Métaux précieux, gravures sur mesure.</p>
+            <span class="feature-price">Dès 1 900 €</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M6 24c0-7 8-12 18-12s18 5 18 12-8 12-18 12S6 31 6 24z"/><path d="M6 24h36"/></svg>
+            </span>
+            <h3>Bracelets en cuir fin</h3>
+            <p>Tannage traditionnel, boucles en or massif.</p>
+            <span class="feature-price">Dès 650 €</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="14" cy="24" r="7"/><circle cx="34" cy="24" r="7"/><path d="M21 22h6M21 26h6"/></svg>
+            </span>
+            <h3>Boutons de manchette</h3>
+            <p>Émail, nacre et pierres fines.</p>
+            <span class="feature-price">Dès 480 €</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M10 10c9 4 19 4 28 0"/><path d="M24 10v13"/><path d="M18 23l6 11 6-11z"/></svg>
+            </span>
+            <h3>Chaînes &amp; pendentifs</h3>
+            <p>Discrétion assumée, finitions d'orfèvre.</p>
+            <span class="feature-price">Dès 1 100 €</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><line x1="10" y1="38" x2="38" y2="10"/><circle cx="10" cy="38" r="3"/><circle cx="38" cy="10" r="3"/></svg>
+            </span>
+            <h3>Épingles à revers</h3>
+            <p>Barres de col sophistiquées, sur mesure.</p>
+            <span class="feature-price">Dès 320 €</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><rect x="9" y="16" width="30" height="20" rx="2"/><path d="M9 16l6-8h18l6 8"/></svg>
+            </span>
+            <h3>Authenticité garantie</h3>
+            <p>Certificat et provenance pour chaque pièce.</p>
+            <span class="feature-price">Inclus</span>
+          </div>
         </div>
       </div>
 
@@ -176,30 +186,36 @@
 
       <div class="card-grid reveal">
         <article class="card card-cigar">
-          <span class="card-icon">
-            <svg viewBox="0 0 64 28" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M3 14c0-5 7-8 16-8h26c9 0 16 3 16 8s-7 8-16 8H19c-9 0-16-3-16-8z"/><line x1="22" y1="7" x2="22" y2="21"/></svg>
-          </span>
-          <h3 class="card-title">Cave privée</h3>
-          <p class="card-text">Vieillissement contrôlé en humidor climatisé, réserves numérotées et allouées.</p>
-          <span class="card-meta">Sur allocation</span>
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1749842839766-8b71630a627d?w=800&q=80&auto=format&fit=crop" alt="Humidor ouvert présentant une réserve de cigares numérotés" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Cave privée</h3>
+            <p class="card-text">Vieillissement contrôlé en humidor climatisé, réserves numérotées et allouées.</p>
+            <span class="card-price">Dès 180 € la boîte — sur allocation</span>
+          </div>
         </article>
 
         <article class="card card-cigar">
-          <span class="card-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><rect x="9" y="18" width="30" height="20" rx="2"/><path d="M9 18l6-9h18l6 9"/></svg>
-          </span>
-          <h3 class="card-title">Accessoires de maître</h3>
-          <p class="card-text">Coupe-cigares, briquets et humidificateurs, façonnés dans les matières les plus nobles.</p>
-          <span class="card-meta">Pièces d'artisan</span>
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1536303158031-c868b371399f?w=800&q=80&auto=format&fit=crop" alt="Gentleman savourant un cigare dans un fauteuil en cuir" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Accessoires de maître</h3>
+            <p class="card-text">Coupe-cigares, briquets et humidificateurs, façonnés dans les matières les plus nobles.</p>
+            <span class="card-price">À partir de 350 €</span>
+          </div>
         </article>
 
         <article class="card card-cigar">
-          <span class="card-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M24 4c6 6 12 12 12 20a12 12 0 0 1-24 0c0-8 6-14 12-20z"/></svg>
-          </span>
-          <h3 class="card-title">Sélections rares</h3>
-          <p class="card-text">Éditions limitées et modules d'exception, réservés aux membres du Cercle Privé.</p>
-          <span class="card-meta">Édition confidentielle</span>
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1631227852854-7c0fac3c9aeb?w=800&q=80&auto=format&fit=crop" alt="Cigare d'exception en gros plan, édition confidentielle" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Sélections rares</h3>
+            <p class="card-text">Éditions limitées et modules d'exception, réservés aux membres du Cercle Privé.</p>
+            <span class="card-price">1 200 € l'unité — édition confidentielle</span>
+          </div>
         </article>
       </div>
     </div>
