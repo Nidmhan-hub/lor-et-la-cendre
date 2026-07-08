@@ -6,7 +6,7 @@
    3. Collez cette URL ci-dessous, puis rechargez la page.
    Tant que la valeur est vide, le widget ne se charge pas (utile pour le design).
    ========================================================================== */
-const N8N_CHAT_WEBHOOK_URL = "https://nidmhan.app.n8n.cloud/webhook/lor-et-la-cendre-chat/chat";
+const N8N_CHAT_WEBHOOK_URL = "https://nidmhan.app.n8n.cloud/webhook/lor-et-la-cendre-chat-rag/chat";
 
 if (N8N_CHAT_WEBHOOK_URL) {
   // Feuille de style officielle du widget n8n (CDN)
