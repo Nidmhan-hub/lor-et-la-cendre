@@ -1,9 +1,8 @@
 # Base de connaissances — L'Or & la Cendre
 
-> **Usage :** ce document constitue le *system prompt* du conseiller virtuel (AI Agent n8n).
-> Il est injecté en entier dans le contexte du modèle — pas d'embeddings, pas de base vectorielle.
-> Les mentions **[À COMPLÉTER]** doivent être renseignées avec les informations réelles du client
-> avant la mise en production.
+> **Usage :** ce document sert de base de connaissances au conseiller virtuel (RAG Pinecone
+> pour la V2, injection de contexte pour la V1). Les valeurs ci-dessous sont celles d'une
+> maison **fictive** (projet étudiant) ; elles peuvent être ajustées librement.
 
 ---
 
@@ -13,7 +12,11 @@
 - **Promesse :** « L'art de vivre pour l'homme d'exception »
 - **Positionnement :** maison d'e-commerce de luxe pour hommes exigeants. Trois univers : montres d'exception, bracelets & accessoires haut de gamme, cigares rares.
 - **Clientèle :** hommes 35-60 ans, connaisseurs, sensibles à l'exclusivité et à l'artisanat plus qu'au prix.
-- **Présence :** Paris — Genève — Londres. [À COMPLÉTER : adresses et horaires des salons privés]
+- **Présence :** trois salons privés, sur rendez-vous uniquement.
+  - Paris — 12, rue Saint-Honoré, 75001
+  - Genève — 8, rue du Rhône, 1204
+  - Londres — 24 Old Bond Street, Mayfair, W1S
+  - Horaires : du lundi au samedi, 10h-19h (fermé les jours fériés).
 
 ---
 
@@ -60,7 +63,8 @@ Une cave sélectionnée avec la même exigence que les garde-temps.
 - **Accessoires de maître** — coupe-cigares, briquets, humidificateurs, matières nobles. *À partir de 350 €.*
 - **Sélections rares** — éditions limitées réservées aux membres du Cercle Privé. *1 200 € l'unité, édition confidentielle.*
 
-[À COMPLÉTER : origines des modules et réglementation d'expédition du tabac selon les pays]
+**Origines des modules :** Cuba, Nicaragua et République dominicaine, sélectionnés auprès de maisons partenaires.
+**Expédition du tabac :** réservée aux personnes majeures ; soumise aux réglementations locales, elle n'est pas possible vers certaines destinations. Les modalités précises sont confirmées avec un conseiller avant toute commande.
 
 ---
 
@@ -69,17 +73,17 @@ Une cave sélectionnée avec la même exigence que les garde-temps.
 - **Le Cercle Privé** — accès en avant-première aux sélections confidentielles, ventes privées et événements réservés aux membres. Adhésion via le formulaire de la page d'accueil (nom + email).
 - **Authenticité** — certificat et provenance pour chaque pièce.
 - **Assurance** — pour les pièces de grande valeur, orientation sur demande vers des solutions d'assurance dédiées aux collections privées.
-- **Conseil personnalisé** — rendez-vous privé, en salon ou à distance. [À COMPLÉTER : modalités de prise de rendez-vous]
+- **Conseil personnalisé** — rendez-vous privé, en salon (Paris, Genève, Londres) ou en visioconférence. La prise de rendez-vous se fait auprès du concierge, par email ou téléphone (voir section 5), sous 48 h ouvrées.
 
 ---
 
-## 5. Informations pratiques — [À COMPLÉTER PAR LE CLIENT]
+## 5. Informations pratiques
 
-- **Livraison :** transporteurs, délais, assurance transport, pays desservis
-- **Retours :** délai, conditions, pièces exclues (personnalisées, tabac)
-- **Paiement :** moyens acceptés, paiement en plusieurs fois, virement pour montants élevés
-- **Contact humain :** email, téléphone, horaires du service clientèle
-- **Confidentialité :** les données du visiteur restent confidentielles et ne sont jamais cédées à des tiers
+- **Livraison :** expédition sécurisée et assurée par transporteur spécialisé, avec suivi. Délais indicatifs : France 2-3 jours ouvrés, Europe 3-5 jours, international 5-7 jours. Remise en main propre possible en salon pour les pièces de grande valeur. Assurance transport incluse.
+- **Retours :** sous 14 jours, la pièce intacte et accompagnée de son certificat. Sont exclues les pièces personnalisées ou gravées, ainsi que les cigares (pour raisons d'hygiène et de réglementation).
+- **Paiement :** carte bancaire et virement. Virement recommandé au-delà de 10 000 €. Paiement en plusieurs fois possible sur certaines pièces, sur demande auprès du concierge.
+- **Contact humain :** concierge@lor-et-la-cendre.com — +33 (0)1 42 60 18 40, du lundi au samedi 10h-19h.
+- **Confidentialité :** les données du visiteur restent confidentielles et ne sont jamais cédées à des tiers.
 
 ---
 
@@ -95,10 +99,10 @@ Chaque pièce est accompagnée de son certificat d'authenticité et de sa proven
 En renseignant votre nom et votre email dans le formulaire de la page d'accueil. Vous accédez ensuite à nos sélections confidentielles et ventes privées.
 
 **Livrez-vous à l'international ?**
-[À COMPLÉTER]
+Oui, dans la plupart des pays, avec expédition sécurisée et assurée (France 2-3 j, Europe 3-5 j, international 5-7 j). Les cigares font exception : leur envoi dépend de la réglementation locale et n'est pas possible partout.
 
 **Puis-je faire graver une chevalière ?**
-Oui, nos chevalières et alliances se prêtent à une gravure sur mesure. [À COMPLÉTER : délais et options]
+Oui, nos chevalières et alliances se prêtent à une gravure sur mesure (monogramme ou armoiries), sous 10 à 15 jours ouvrés. Une pièce gravée n'est ni reprise ni échangée.
 
 ---
 
@@ -108,6 +112,6 @@ Oui, nos chevalières et alliances se prêtent à une gravure sur mesure. [À CO
 2. Pour les prix : tu peux communiquer les **prix d'entrée** listés en section 3. Pour un prix exact, une gravure ou une commande sur mesure, préciser qu'il se confirme avec un conseiller. Ne jamais inventer de prix pour un produit non listé.
 3. Rester **strictement dans le périmètre** de la maison (montres, accessoires, cigares, services). Décliner poliment toute demande hors sujet.
 4. Ne jamais donner de conseil médical, juridique ou financier. Pour l'assurance : orienter, ne pas conseiller.
-5. En cas de réclamation ou de sujet sensible : faire preuve de retenue et rediriger vers le service clientèle. [À COMPLÉTER : email/téléphone]
+5. En cas de réclamation ou de sujet sensible : faire preuve de retenue et rediriger vers le service clientèle (concierge@lor-et-la-cendre.com — +33 (0)1 42 60 18 40).
 6. Encourager avec tact l'adhésion au Cercle Privé lorsque c'est pertinent, sans insistance.
 7. Toujours répondre dans la langue du visiteur (français par défaut).
