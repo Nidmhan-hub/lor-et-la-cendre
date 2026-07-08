@@ -1,0 +1,115 @@
+{
+  "name": "L'Or & la Cendre — Ingestion Pinecone (V2)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger-node",
+      "name": "Lancer l'ingestion",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [220, 320]
+    },
+    {
+      "parameters": {
+        "url": "https://raw.githubusercontent.com/Nidmhan-hub/lor-et-la-cendre/main/chatbot/base-connaissances.md",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "http-node",
+      "name": "Récupérer base-connaissances.md",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 320]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "id": "pinecone-insert-node",
+      "name": "Pinecone — Insertion",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.1,
+      "position": [700, 320],
+      "credentials": {
+        "pineconeApi": {
+          "id": "REMPLACER_PAR_VOTRE_CREDENTIAL",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/text-embedding-004"
+      },
+      "id": "embeddings-node",
+      "name": "Embeddings Gemini",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [620, 540],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "REMPLACER_PAR_VOTRE_CREDENTIAL",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "json",
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.data }}",
+        "options": {}
+      },
+      "id": "data-loader-node",
+      "name": "Chargement du document",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [820, 540]
+    },
+    {
+      "parameters": {
+        "chunkSize": 1000,
+        "chunkOverlap": 100,
+        "options": {}
+      },
+      "id": "splitter-node",
+      "name": "Découpage du texte",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [1000, 720]
+    }
+  ],
+  "connections": {
+    "Lancer l'ingestion": {
+      "main": [[{ "node": "Récupérer base-connaissances.md", "type": "main", "index": 0 }]]
+    },
+    "Récupérer base-connaissances.md": {
+      "main": [[{ "node": "Pinecone — Insertion", "type": "main", "index": 0 }]]
+    },
+    "Embeddings Gemini": {
+      "ai_embedding": [[{ "node": "Pinecone — Insertion", "type": "ai_embedding", "index": 0 }]]
+    },
+    "Chargement du document": {
+      "ai_document": [[{ "node": "Pinecone — Insertion", "type": "ai_document", "index": 0 }]]
+    },
+    "Découpage du texte": {
+      "ai_textSplitter": [[{ "node": "Chargement du document", "type": "ai_textSplitter", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": {
+    "description": "Ingestion — remplit l'index Pinecone à partir de base-connaissances.md (récupérée depuis GitHub). À lancer manuellement une fois (et à relancer après chaque mise à jour de la base)."
+  },
+  "pinData": {}
+}

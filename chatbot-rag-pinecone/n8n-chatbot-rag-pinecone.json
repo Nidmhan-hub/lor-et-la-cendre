@@ -1,0 +1,125 @@
+{
+  "name": "L'Or & la Cendre — Conseiller virtuel RAG (V2 Pinecone)",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {
+          "responseMode": "lastNode",
+          "allowedOrigins": "*",
+          "title": "L'Or & la Cendre",
+          "subtitle": "Votre conseiller privé",
+          "inputPlaceholder": "Posez votre question…"
+        }
+      },
+      "id": "chat-trigger-node",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 320],
+      "webhookId": "lor-et-la-cendre-chat-rag"
+    },
+    {
+      "parameters": {
+        "promptType": "auto",
+        "options": {
+          "systemMessage": "Tu es le conseiller virtuel de la maison de luxe « L'Or & la Cendre » (montres, bracelets & accessoires, cigares). Promesse : « L'art de vivre pour l'homme d'exception ».\n\nUTILISATION DE LA BASE : pour TOUTE question sur les produits, prix, services ou politiques de la maison, utilise d'abord l'outil « base_connaissances » pour retrouver l'information, puis réponds à partir de ce qu'il renvoie. Ne réponds jamais de mémoire sur ces sujets. Si l'outil ne renvoie rien d'utile, propose de transmettre la demande à un conseiller.\n\nTON & STYLE :\n- Vouvoiement systématique, aucune familiarité.\n- Raffiné, assuré, sobre. Phrases courtes, vocabulaire soigné.\n- On suggère le luxe, on ne le crie jamais. Aucun emoji.\n- Réponses concises (2 à 4 phrases), on approfondit seulement si le visiteur le demande.\n\nRÈGLES IMPÉRATIVES :\n1. Ne jamais inventer de prix, délai, stock ou caractéristique absents de la base.\n2. Rester strictement dans le périmètre de la maison ; décliner poliment le hors sujet.\n3. Aucun conseil médical, juridique ou financier.\n4. Réclamation ou sujet sensible : retenue, rediriger vers le service clientèle.\n5. Inviter au Cercle Privé avec tact lorsque c'est pertinent.\n6. Toujours répondre dans la langue du visiteur (français par défaut)."
+        }
+      },
+      "id": "agent-node",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [500, 320]
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": { "temperature": 0.3 }
+      },
+      "id": "gemini-chat-node",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [360, 560],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "REMPLACER_PAR_VOTRE_CREDENTIAL",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": { "contextWindowLength": 12 },
+      "id": "memory-node",
+      "name": "Mémoire de conversation",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [520, 560]
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "base_connaissances",
+        "toolDescription": "Recherche dans la base de connaissances de L'Or & la Cendre : produits, collections, prix, services, Cercle Privé, authenticité, politiques. À utiliser pour toute question factuelle sur la maison.",
+        "pineconeIndex": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "topK": 4,
+        "options": {}
+      },
+      "id": "pinecone-tool-node",
+      "name": "Pinecone — Recherche",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.1,
+      "position": [720, 560],
+      "credentials": {
+        "pineconeApi": {
+          "id": "REMPLACER_PAR_VOTRE_CREDENTIAL",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/text-embedding-004"
+      },
+      "id": "embeddings-node",
+      "name": "Embeddings Gemini",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [720, 780],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "REMPLACER_PAR_VOTRE_CREDENTIAL",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Chat Trigger": {
+      "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [[{ "node": "AI Agent", "type": "ai_languageModel", "index": 0 }]]
+    },
+    "Mémoire de conversation": {
+      "ai_memory": [[{ "node": "AI Agent", "type": "ai_memory", "index": 0 }]]
+    },
+    "Pinecone — Recherche": {
+      "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]]
+    },
+    "Embeddings Gemini": {
+      "ai_embedding": [[{ "node": "Pinecone — Recherche", "type": "ai_embedding", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": {
+    "description": "Chatbot RAG (V2) — répond en interrogeant l'index Pinecone via un outil de recherche. Nécessite d'avoir lancé l'ingestion au préalable."
+  },
+  "pinData": {}
+}
