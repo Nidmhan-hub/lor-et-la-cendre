@@ -1,0 +1,80 @@
+{
+  "name": "L'Or & la Cendre — Agent emails (Webhook / page admin)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lor-et-la-cendre-emails",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-node",
+      "name": "Webhook (page admin)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 320],
+      "webhookId": "lor-et-la-cendre-emails"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rédige l'email pour la campagne suivante :\n- Type de campagne : {{ $json.body.typeCampagne }}\n- Univers à mettre en avant : {{ $json.body.univers }}\n- Segment / persona : {{ $json.body.segment }}\n- Prénom du destinataire : {{ $json.body.prenom }}\n- Précisions / offre : {{ $json.body.precisions }}",
+        "options": {
+          "systemMessage": "### RÔLE\nTu es le rédacteur email de la maison de luxe « L'Or & la Cendre » (montres d'exception, bracelets & accessoires, cigares rares).\n\n### CONTEXTE\nMaison d'e-commerce de luxe pour hommes exigeants (35-60 ans, connaisseurs). Promesse : « L'art de vivre pour l'homme d'exception ». Les campagnes s'adressent à des prospects ou à des membres du Cercle Privé.\n\n### OBJECTIF\nRédiger un email marketing personnalisé, prêt à être envoyé, à partir des paramètres de campagne fournis (type, univers, segment, prénom, offre).\n\n### INSTRUCTIONS\n- Personnalise selon le segment et le prénom. Si le prénom est absent, ouvre avec élégance sans prénom.\n- Adapte le fond à l'univers indiqué (montres, accessoires ou cigares).\n- Un seul appel à l'action, clair et formulé avec retenue.\n\n### CONTRAINTES\n- Vouvoiement systématique, aucune familiarité.\n- Raffiné, assuré, sobre. Phrases courtes, vocabulaire soigné.\n- On suggère le luxe, on ne le crie jamais. Aucun emoji, aucune surenchère de points d'exclamation.\n- Ne jamais inventer de prix : rester sur « sur demande », « sur allocation » ou « sur invitation ».\n- Français impeccable.\n\n### STRUCTURE (sortie à respecter exactement)\nOBJET (3 propositions) :\n1. …\n2. …\n3. …\n\nAPERÇU (~90 caractères) :\n…\n\nCORPS DE L'EMAIL :\n[Salutation personnalisée]\n[2 à 3 courts paragraphes dans le ton de la maison]\n[Appel à l'action unique, mis en évidence]\n[Formule de politesse + signature « La Maison L'Or & la Cendre »]\n\nPS (optionnel, une ligne) :\n…"
+        }
+      },
+      "id": "email-agent-node",
+      "name": "Agent rédacteur email",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [520, 320]
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": { "temperature": 0.7 }
+      },
+      "id": "gemini-model-node",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [440, 540],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "REMPLACER_PAR_VOTRE_CREDENTIAL",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { output: $json.output } }}",
+        "options": {}
+      },
+      "id": "respond-node",
+      "name": "Réponse à la page admin",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [760, 320]
+    }
+  ],
+  "connections": {
+    "Webhook (page admin)": {
+      "main": [[{ "node": "Agent rédacteur email", "type": "main", "index": 0 }]]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [[{ "node": "Agent rédacteur email", "type": "ai_languageModel", "index": 0 }]]
+    },
+    "Agent rédacteur email": {
+      "main": [[{ "node": "Réponse à la page admin", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": {
+    "description": "Agent emails appelable depuis la page admin du site (Webhook -> AI Agent -> Réponse JSON). Remplace la version à formulaire n8n."
+  },
+  "pinData": {}
+}

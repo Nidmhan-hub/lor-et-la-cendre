@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
 
@@ -23,6 +24,7 @@
       <a href="#montres" class="nav-link">Montres</a>
       <a href="#accessoires" class="nav-link">Bracelets &amp; Accessoires</a>
       <a href="#cigares" class="nav-link">Cigares</a>
+      <a href="#espace-equipe" class="nav-link">Espace équipe</a>
       <a href="#cercle" class="nav-link nav-cta">Le Cercle Privé</a>
     </nav>
 
@@ -256,6 +258,74 @@
     </div>
   </section>
 
+  <!-- ===================== ESPACE ÉQUIPE — GÉNÉRATEUR D'EMAILS ===================== -->
+  <section class="universe alt" id="espace-equipe">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Espace équipe</p>
+        <h2 class="section-title">Générateur d'emails</h2>
+        <div class="divider"><span></span><i></i><span></span></div>
+        <p class="section-lead">Outil interne de l'équipe marketing : décrivez une campagne, l'agent IA rédige un email complet (objet, aperçu, corps, appel à l'action) dans la voix de la maison.</p>
+      </div>
+
+      <div class="admin-grid reveal">
+        <form class="admin-card" id="emailForm" novalidate>
+          <div class="field">
+            <label for="typeCampagne">Type de campagne</label>
+            <select id="typeCampagne" name="typeCampagne" required>
+              <option value="Email de bienvenue">Email de bienvenue</option>
+              <option value="Lancement de collection">Lancement de collection</option>
+              <option value="Invitation événement privé">Invitation événement privé</option>
+              <option value="Réactivation client">Réactivation client</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="univers">Univers à mettre en avant</label>
+            <select id="univers" name="univers" required>
+              <option value="Montres">Montres</option>
+              <option value="Bracelets &amp; Accessoires">Bracelets &amp; Accessoires</option>
+              <option value="Cigares">Cigares</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="segment">Segment / persona</label>
+            <select id="segment" name="segment" required>
+              <option value="Nouveau prospect">Nouveau prospect</option>
+              <option value="Membre du Cercle Privé">Membre du Cercle Privé</option>
+              <option value="Client fidèle">Client fidèle</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="prenom">Prénom du destinataire <span class="opt">(optionnel)</span></label>
+            <input type="text" id="prenom" name="prenom" placeholder="Alexandre" autocomplete="off">
+          </div>
+
+          <div class="field">
+            <label for="precisions">Précisions / offre <span class="opt">(optionnel)</span></label>
+            <textarea id="precisions" name="precisions" rows="3" placeholder="Avant-première de la collection Souveraine…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="genBtn">
+            <span class="btn-label">Générer l'email</span>
+          </button>
+          <p class="form-note" id="emailNote" role="status" aria-live="polite"></p>
+        </form>
+
+        <section class="admin-card admin-result" id="resultCard" aria-live="polite">
+          <div class="result-head">
+            <h2>Email généré</h2>
+            <button type="button" class="copy-btn" id="copyBtn" hidden>Copier</button>
+          </div>
+          <div class="result-empty" id="resultEmpty">Le résultat s'affichera ici après génération.</div>
+          <pre class="result-text" id="resultText" hidden></pre>
+        </section>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <!-- ===================== FOOTER ===================== -->
@@ -264,10 +334,12 @@
     <a href="#top" class="logo small">L'OR <span class="amp">&amp;</span> LA CENDRE</a>
     <p class="footer-tagline">Paris — Genève — Londres</p>
     <p class="footer-copy">&copy; <span id="year"></span> L'Or &amp; la Cendre. Tous droits réservés.</p>
+    <p class="footer-admin"><a href="#espace-equipe">Espace équipe</a></p>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/admin.js"></script>
 <script type="module" src="js/chat.js"></script>
 </body>
 </html>
